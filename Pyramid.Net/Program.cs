@@ -32,7 +32,23 @@ namespace Pyramid.Net
             var pyramidPaths =  pyramidExplorer.Explore(pyramidStructure);
             #endregion
 
-            Console.WriteLine($"{Environment.NewLine}Found {pyramidPaths?.Count()} paths.");
+
+            #region Paint_Output_Console
+            int pyramidPathsCount = pyramidPaths.Count();
+            Console.WriteLine($"{Environment.NewLine}Found {pyramidPathsCount} paths. (Complete & Incomplete)");
+
+            //Below are testing methods. Intentionally commented.
+            //pyramidPaths.Select(s => s.Sum()).ToList().ForEach(s => Console.WriteLine("Sum of path is:" + s));
+            //long maxSumOfPyramidPath = pyramidPaths.Max(p => p.Sum());
+            
+            var maximumSumPyramidPathIndexAndSum = pyramidPaths.Select((n, i) => (Max: n.Sum(), Index: i)).Max();
+            var maximumSumPyramidPath = pyramidPaths[maximumSumPyramidPathIndexAndSum.Index];
+            
+            Console.WriteLine($"{Environment.NewLine}Maximum sum of Pyramid path: {maximumSumPyramidPathIndexAndSum.Max}.");
+            Console.WriteLine($"{Environment.NewLine}List of items from the maximum sum path:");
+            maximumSumPyramidPath.ForEach(p => Console.Write($"{p} "));
+            Console.Write($"= {maximumSumPyramidPathIndexAndSum.Max}");
+            #endregion
             Console.Read();
         }
     }
